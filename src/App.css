@@ -1,0 +1,12 @@
+body {
+    margin-top: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.title {
+    padding-left: 20px;
+}
