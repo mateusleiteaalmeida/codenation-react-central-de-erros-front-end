@@ -6,7 +6,7 @@ import '../App.css';
 
 const Home = () => {
     return(
-    <div className="container-fluid border border-danger">
+    <div className="container-fluid">
         <Header />
         <div className="form-container d-flex flex-column justify-content-center view-height">
           <Login />           
