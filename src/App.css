@@ -10,3 +10,12 @@ body {
 .title {
     padding-left: 20px;
 }
+
+.view-height {
+    height: 100vh;
+}
+
+.form-container {
+  margin: auto;
+  max-width: 400px;
+}

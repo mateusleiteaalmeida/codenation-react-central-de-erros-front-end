@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
 import ContextError from './context';
+import axios from 'axios';
 
 const ProviderError = ({children}) => {
     const [email, setEmail] = useState('');
@@ -16,28 +17,26 @@ const ProviderError = ({children}) => {
       setPass(pass);
     }
     const history = useHistory();
-    const isRegister = () => {
-      history.push('/register');
-    }
+    const isRegister = () => history.push('/register');
 
-    const isLogin = async () => {
+    const isLogin = async (event) => {
+      event.preventDefault();
+      const url = 'https://squad-4-central-de-erros.herokuapp.com/oauth/token'
+      const headers = {username:'authlogin', password:'authlogin123'}
+      
+      
+      axios.post(url,headers)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+      console.log('Chamou o fetch');
 
-      const myHeaders = new Headers();
-     const dataRequest =  {
-       method: 'POST',
-       headers: myHeaders,
-       mode: 'cors',
-       cache: 'default'
-     }
-     const myRequest = new Request('', dataRequest)
-     const response = fetch(myRequest)
-       .then((response) => response.blob())
+  
    
-       if(response.contain('promise')){
-         return <Redirect to="/interface"/>
-       } else {
-         setUserReturn('Erro ao logar');
-       }
+      //  if(response.contain('promise')){
+      //    return <Redirect to="/interface"/>
+      //  } else {
+      //    setUserReturn('Erro ao logar');
+      //  }
    
    }
 
