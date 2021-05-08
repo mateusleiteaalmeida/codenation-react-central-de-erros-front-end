@@ -21,7 +21,7 @@ const ProviderError = ({children}) => {
     history.push('/register');
   }
 
-  const isLogin = async () => {
+  const isLogin = () => {
     console.log('entrou')
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Basic YXV0aExvZ2luOmF1dGhQYXNzd29yZDEyMw==");
@@ -48,7 +48,7 @@ const ProviderError = ({children}) => {
       .then(result => {
         console.log('entrou também 2')
         localStorage.setItem('token', result.access_token);
-        window.location.replace('/logs');
+        window.location.href = '/logs';
       })
       .catch(error => alert(error.message));
   }

@@ -4,7 +4,8 @@ const Logs = () => {
   
   return (
   <div>
-    
+    <table>
+    </table>
   </div>
   );
   }

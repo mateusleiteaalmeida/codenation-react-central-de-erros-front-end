@@ -17,12 +17,10 @@ const LogsPage = () => {
 
     fetch("http://localhost:8080/logs", requestOptions)
     .then(response => {
-      console.log('entrou aqui também')
       if (response.status === 404) throw new Error ('Logs não encontrados.');
       return response.json()
     })
     .then(result => {
-      console.log('entrou também 2')
       console.log(result.content)
       return result;
     })
