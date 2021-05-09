@@ -4,7 +4,7 @@ const Header = () => {
     return(
     <div className="header bg-primary title">
         <h2 className="text-white ">
-            Central de erro
+          Central de erros
         </h2>
     </div>
     );

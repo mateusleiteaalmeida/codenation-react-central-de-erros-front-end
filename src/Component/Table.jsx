@@ -1,21 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ContextError from "../Provider/context";
 const Table = () => {
-  const { getLogs, logs } = useContext(ContextError);
-
-  useEffect(() => {
-    getLogs();
-  },[]);
+  const { logs } = useContext(ContextError);
 
   return (
     <div className="table ">
       <table className="overall-width">
         <tr>
-          <th>id</th>
-          <th>data</th>
-          <th>origem</th>
+          <th>Id</th>
+          <th>Data</th>
+          <th>Origem</th>
           <th>Level</th>
-          <th>descrição</th>
+          <th>Descrição</th>
         </tr>
         <tbody>
           {logs.content.map((logs) => (

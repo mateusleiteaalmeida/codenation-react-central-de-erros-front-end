@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import ContextError from './context';
 // import axios from 'axios';
@@ -20,6 +20,9 @@ const ProviderError = ({children}) => {
   const [pass, setPass] = useState('');
   const [userReturn, setUserReturn] = useState('');
   const [logs, setLogs] = useState(defaultValue); // Implementação da gambiarra.
+  const [pageNumber, setPageNumber] = useState(0);
+  const [sortQuery, setSortQuery] = useState('');
+  const [pageSize, setPageSize] = useState(4);
 
   // Use effect para chamada da api.
 
@@ -34,6 +37,8 @@ const ProviderError = ({children}) => {
   const isRegister = () => {
     window.location.href = '/register';
   }
+
+  const url = 'https://squad-4-central-de-erros.herokuapp.com'
 
   const isLogin = (event) => {
     event.preventDefault();
@@ -52,8 +57,8 @@ const ProviderError = ({children}) => {
       body: urlencoded,
       redirect: 'follow'
     };
-    
-   fetch("https://squad-4-central-de-erros.herokuapp.com/oauth/token", requestOptions)
+
+    fetch(`${url}/oauth/token`, requestOptions)
       .then(response => {
         if (response.status === 401) throw new Error ('Usuário ou senha incorretos.');
         return response.json()
@@ -77,7 +82,7 @@ const ProviderError = ({children}) => {
       redirect: "follow",
     };
 
-    fetch("https://squad-4-central-de-erros.herokuapp.com/logs", requestOptions)
+    fetch(`${url}/logs?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
       .then((response) => {
         if (response.status === 404) throw new Error("Logs não encontrados.");
         return response.json();
@@ -97,23 +102,31 @@ const ProviderError = ({children}) => {
     window.location.href = '/login';
   }
 
-
+  useEffect(() => {
+    getLogs()
+  }, [pageNumber, sortQuery, pageSize]);
 
   const context = {
-      email,
-      setEmail,
-      pass,
-      setPass,
-      setUserReturn,
-      userReturn,
-      getPass,
-      getLogin,
-      isLogin,
-      isRegister,
-      onRegister,
-      cancel,
-      getLogs,
-      logs,
+    email,
+    setEmail,
+    pass,
+    setPass,
+    setUserReturn,
+    userReturn,
+    getPass,
+    getLogin,
+    isLogin,
+    isRegister,
+    onRegister,
+    cancel,
+    logs,
+    getLogs,
+    pageNumber,
+    setPageNumber,
+    sortQuery,
+    setSortQuery,
+    pageSize,
+    setPageSize
   }
 
   return(
