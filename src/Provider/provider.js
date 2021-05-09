@@ -1,12 +1,25 @@
 import React, {useState} from 'react';
 // import { useHistory } from 'react-router-dom';
 import ContextError from './context';
-import axios from 'axios';
+// import axios from 'axios';
 
 const ProviderError = ({children}) => {
+//  Gambiarra para resolver proble de assincronicidade, com o tempo de montagem do componet e a req.
+  const defaultValue = {
+    content: [{
+      id: 1,
+      level: "info",
+      origin: "test",
+      date: "05/09/1855",
+      description: "test",
+    }]
+  }
+  ;
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [userReturn, setUserReturn] = useState('');
+  const [logs, setLogs] = useState(defaultValue); // Implementação da gambiarra.
 
   // Use effect para chamada da api.
 
@@ -42,17 +55,39 @@ const ProviderError = ({children}) => {
     
    fetch("https://squad-4-central-de-erros.herokuapp.com/oauth/token", requestOptions)
       .then(response => {
-        console.log('entrou aqui também')
         if (response.status === 401) throw new Error ('Usuário ou senha incorretos.');
         return response.json()
       })
       .then(result => {
-        console.log('entrou também 2')
         localStorage.setItem('token', result.access_token);
         window.location.href = '/logs';
       })
       .catch(error => alert(error.message));
   }
+
+  // Caputura os logs
+  const getLogs = () => {
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch("https://squad-4-central-de-erros.herokuapp.com/logs", requestOptions)
+      .then((response) => {
+        if (response.status === 404) throw new Error("Logs não encontrados.");
+        return response.json();
+      })
+      .then((result) => {
+        setLogs(result);
+      })
+      .catch((error) => alert(error.message));
+  };
+
 
   const onRegister = () => {
     alert('Usuario cadastrado com sucesso!');
@@ -77,6 +112,8 @@ const ProviderError = ({children}) => {
       isRegister,
       onRegister,
       cancel,
+      getLogs,
+      logs,
   }
 
   return(
