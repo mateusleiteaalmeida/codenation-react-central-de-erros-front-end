@@ -4,8 +4,8 @@ import Header from '../Component/Header';
 // import Picture from '../Component/Picture';
 import '../App.css';
 
-const Home = () => {
-    return(
+const LoginPage = () => {
+  return(
     <div className="container-fluid">
         <Header />
         <div className="form-container d-flex flex-column justify-content-center view-height">
@@ -15,4 +15,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default LoginPage;

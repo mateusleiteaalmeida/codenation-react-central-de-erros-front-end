@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext } from 'react';
 import Context from '../Provider/context';
 
 const Login = () => {
@@ -11,7 +11,7 @@ const {
 } = useContext(Context);
 
   return (
-  <form>
+  <form className="border rounded space">
     <div className="form-group">
       <input 
       type="text"
