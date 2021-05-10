@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import ContextError from "../Provider/context";
 const Table = () => {
-  const { logs, getLogById, logId, setLogId } = useContext(ContextError);
+  const { logs, getLogById, logId, setLogId, isFetching } = useContext(ContextError);
 
   const handleIdClick = ({target}) => {
     window.location.href=`/logs/details/${target.innerText}`
@@ -9,6 +9,7 @@ const Table = () => {
   }
 
   return (
+    isFetching ? <h1> Loading...</h1> :
     <div className="table ">
       <table className="overall-width">
         <tr>

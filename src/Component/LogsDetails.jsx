@@ -3,7 +3,7 @@ import ContextError from "../Provider/context";
 
 const LogDetails = () => {
   const {
-    getLogById, logId, logDetails, setLogId
+    getLogById, logId, logDetails, setLogId, isFetching
   } = useContext(ContextError);
   
   useEffect(() => {
@@ -14,6 +14,7 @@ const LogDetails = () => {
   }, [logId])
 
     return (
+      isFetching ? <h1> Loading...</h1> :
       <div>
         <table>
         { logDetails && Object.entries(logDetails).map((element) => <tr key={element}>{element}</tr>) }

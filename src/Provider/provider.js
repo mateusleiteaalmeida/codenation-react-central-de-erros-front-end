@@ -18,6 +18,7 @@ const ProviderError = ({children}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [userReturn, setUserReturn] = useState('');
+  const [isFetching, setIsFetching] = useState(true);
   const [logs, setLogs] = useState(defaultValue); // Implementação da gambiarra.
   const [pageNumber, setPageNumber] = useState(0);
   const [sortQuery, setSortQuery] = useState('');
@@ -90,6 +91,7 @@ const ProviderError = ({children}) => {
         return response.json();
       })
       .then((result) => {
+        setIsFetching(false);
         setLogs(result);
       })
       .catch((error) => alert(error.message));
@@ -112,6 +114,7 @@ const ProviderError = ({children}) => {
         return response.json();
       })
       .then((result) => {
+        setIsFetching(false);
         setLogDetails(result);
       })
       .catch((error) => alert(error.message));
@@ -156,7 +159,8 @@ const ProviderError = ({children}) => {
     setLogId,
     getLogById,
     logDetails,
-    setLogDetails
+    setLogDetails,
+    isFetching
   }
 
   return(
