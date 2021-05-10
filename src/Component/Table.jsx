@@ -4,11 +4,10 @@ const Table = () => {
   const { logs, getLogById, logId, setLogId } = useContext(ContextError);
 
   const handleIdClick = ({target}) => {
-    setLogId(target.innerText)
     window.location.href=`/logs/details/${target.innerText}`
+    setLogId(target.innerText)
   }
 
-  if (logs.length === 0) { return <h2>Não foram localizados erros.</h2> }
   return (
     <div className="table ">
       <table className="overall-width">
@@ -22,7 +21,7 @@ const Table = () => {
         <tbody>
           {logs.content.map((logs) => (
             <tr key={logs.id} className={`table-${logs.level.toLowerCase()}`}>
-              <td><button onClick={ handleIdClick }>{logs.id}</button></td>
+              <td><button type="button" onClick={ handleIdClick }>{logs.id}</button></td>
               <td>{logs.level}</td>
               <td>{logs.origin}</td>
               <td>{logs.date}</td>

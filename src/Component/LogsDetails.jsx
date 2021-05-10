@@ -3,11 +3,13 @@ import ContextError from "../Provider/context";
 
 const LogDetails = () => {
   const {
-    getLogById, logId, logDetails, setLogDetails
+    getLogById, logId, logDetails, setLogId
   } = useContext(ContextError);
   
   useEffect(() => {
-    console.log(logId)
+    const url = window.location.href
+    const idDetail = url.slice(35);
+    setLogId(idDetail)
     getLogById();
   }, [logId])
 
@@ -16,9 +18,9 @@ const LogDetails = () => {
         <table>
         { logDetails && Object.entries(logDetails).map((element) => <tr key={element}>{element}</tr>) }
         </table>
-{/*          <button onClick={window.location.href="/logs"}>
+         <button type="button" onClick={ () => { window.location.href="/logs"} }>
           Retonar
-        </button> */}
+        </button>
       </div>
     );
   }
