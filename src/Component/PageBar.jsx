@@ -20,10 +20,11 @@ const PageBar = () => {
 
   return (
     <div>
-      <label htmlFor="logs-page-limit">
-      Limite de logs por página
+      <label htmlFor="logs-page-limit" className="pagebarLabel">
+      Limite de logs por página:
         <input
           name="logs-page-limit"
+          className="pagebarLabel-input"
           type="number"
           id="logs-page-limit"
           onChange={({target}) => setPageSize(target.value)}
@@ -32,13 +33,16 @@ const PageBar = () => {
         >
         </input>
       </label>
-      <button onClick={ previousPage }
+      <button 
+      className="btn btn-primary button"
+      onClick={ previousPage }
       //  disabled={pageNumber === 0}
       >
         Anterior
       </button>
       { `Página ${pageNumber + 1}` }
       <button
+      className="btn btn-primary button"
       onClick={ nextPage }
       //  disabled={pageNumber === 3}
       >

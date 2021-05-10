@@ -10,7 +10,7 @@ body {
 }
 
 .title {
-  padding-left: 20px;
+  padding: 20px;
 }
 
 .view-height {
@@ -30,18 +30,20 @@ body {
 .form {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
+  margin: 10px 0;
 }
+
 
 .form input,
 select,
 radio {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .button {
-  margin-top: -10px;
+  margin: 5px;
 }
 
 .table-error {
@@ -57,4 +59,12 @@ radio {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+.pagebarLabel{
+  margin-right: 5px;
+}
+
+.pagebarLabel-input{
+  margin-left: 8px;
 }

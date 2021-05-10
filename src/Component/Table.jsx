@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import Loading from "../Component/Loading/Loading"
 import ContextError from "../Provider/context";
+
 const Table = () => {
-  const { logs, getLogById, logId, setLogId, isFetching } = useContext(ContextError);
+  const { logs, setLogId, isFetching } = useContext(ContextError);
 
   const handleIdClick = ({target}) => {
     window.location.href=`/logs/details/${target.innerText}`
@@ -9,7 +11,7 @@ const Table = () => {
   }
 
   return (
-    isFetching ? <h1> Loading...</h1> :
+    isFetching ? <Loading /> :
     <div className="table ">
       <table className="overall-width">
         <tr>
@@ -22,7 +24,14 @@ const Table = () => {
         <tbody>
           {logs.content.map((logs) => (
             <tr key={logs.id} className={`table-${logs.level.toLowerCase()}`}>
-              <td><button type="button" onClick={ handleIdClick }>{logs.id}</button></td>
+              <td><button 
+              type="button" 
+              onClick={ handleIdClick }
+              className="btn btn-primary button"
+              >
+                {logs.id}
+                </button>
+                </td>
               <td>{logs.level}</td>
               <td>{logs.origin}</td>
               <td>{logs.date}</td>

@@ -62,7 +62,7 @@ const Filter = () => {
     <div>
       <form className="form">
       <div className="coluna">
-        <div className="form-label" htmlFor="error-type">
+        <label className="form-label" htmlFor="error-type">
           Ordenar por:
           <select id="log-type" onChange={({target}) => setSortQuery(target.value)} className="form-select">
             <option value="id">Id</option>
@@ -70,10 +70,10 @@ const Filter = () => {
             <option value="description">Descrição</option>
             <option value="date">Data</option>
           </select>
-        </div>
+        </label>
         </div>
         <div className="coluna">
-          <div className="form-label" htmlFor="error-type">
+          <label className="form-label" htmlFor="error-type">
             Level:
             <select name="filter" id="level" className="form-select" onChange={ handleFilterChange } >
               <option value=""></option>
@@ -81,7 +81,7 @@ const Filter = () => {
               <option value="ERROR">Error</option>
               <option value="INFO">Info</option>
             </select>
-          </div>
+          </label>
         </div>
         <div className="coluna">
           <label htmlFor="date">
@@ -107,7 +107,7 @@ const Filter = () => {
               type="text"
               name="filter-value"
               id="string-label"
-              className="form-control"
+              className="form-control m-0"
               placeholder="Filtro"
               disabled
             />

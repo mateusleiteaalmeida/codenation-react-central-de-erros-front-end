@@ -24,7 +24,6 @@ const ProviderError = ({children}) => {
   const [sortQuery, setSortQuery] = useState('');
   const [pageSize, setPageSize] = useState(4);
   const [filterQuery, setFilterQuery] = useState('');
-  const [logId, setLogId] = useState(1);
   const [logDetails, setLogDetails] = useState('');
 
   // Use effect para chamada da api.
@@ -97,7 +96,7 @@ const ProviderError = ({children}) => {
       .catch((error) => alert(error.message));
   };
 
-  const getLogById = () => {
+  const getLogById = (id) => {
     var myHeaders = new Headers();
     const token = localStorage.getItem("token");
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -108,7 +107,7 @@ const ProviderError = ({children}) => {
       redirect: "follow",
     };
 
-    fetch(`${url}/logs/id/${logId}`, requestOptions)
+    fetch(`${url}/logs/id/${id}`, requestOptions)
       .then((response) => {
         if (response.status === 404) throw new Error("Log não encontrado.");
         return response.json();
@@ -155,8 +154,6 @@ const ProviderError = ({children}) => {
     setPageSize,
     filterQuery, 
     setFilterQuery,
-    logId,
-    setLogId,
     getLogById,
     logDetails,
     setLogDetails,
