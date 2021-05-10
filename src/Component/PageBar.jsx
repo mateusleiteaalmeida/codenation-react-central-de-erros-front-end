@@ -5,7 +5,6 @@ const PageBar = () => {
   const {
     pageNumber,
     setPageNumber,
-    pageSize,
     setPageSize
   } = useContext(ContextError);
 

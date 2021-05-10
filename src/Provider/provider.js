@@ -13,8 +13,7 @@ const ProviderError = ({children}) => {
       date: "05/09/1855",
       description: "test",
     }]
-  }
-  ;
+  };
 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -23,6 +22,9 @@ const ProviderError = ({children}) => {
   const [pageNumber, setPageNumber] = useState(0);
   const [sortQuery, setSortQuery] = useState('');
   const [pageSize, setPageSize] = useState(4);
+  const [filterQuery, setFilterQuery] = useState('');
+  const [logId, setLogId] = useState(1);
+  const [logDetails, setLogDetails] = useState('');
 
   // Use effect para chamada da api.
 
@@ -70,7 +72,7 @@ const ProviderError = ({children}) => {
       .catch(error => alert(error.message));
   }
 
-  // Caputura os logs
+  // Captura os logs
   const getLogs = () => {
     var myHeaders = new Headers();
     const token = localStorage.getItem("token");
@@ -81,8 +83,8 @@ const ProviderError = ({children}) => {
       headers: myHeaders,
       redirect: "follow",
     };
-
-    fetch(`${url}/logs?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
+    console.log(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`)
+    fetch(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
       .then((response) => {
         if (response.status === 404) throw new Error("Logs não encontrados.");
         return response.json();
@@ -93,6 +95,27 @@ const ProviderError = ({children}) => {
       .catch((error) => alert(error.message));
   };
 
+  const getLogById = () => {
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(`${url}/logs/id/${logId}`, requestOptions)
+      .then((response) => {
+        if (response.status === 404) throw new Error("Log não encontrado.");
+        return response.json();
+      })
+      .then((result) => {
+        setLogDetails(result);
+      })
+      .catch((error) => alert(error.message));
+  };
 
   const onRegister = () => {
     alert('Usuario cadastrado com sucesso!');
@@ -104,7 +127,7 @@ const ProviderError = ({children}) => {
 
   useEffect(() => {
     getLogs()
-  }, [pageNumber, sortQuery, pageSize]);
+  }, [pageNumber, sortQuery, pageSize, filterQuery]);
 
   const context = {
     email,
@@ -126,7 +149,14 @@ const ProviderError = ({children}) => {
     sortQuery,
     setSortQuery,
     pageSize,
-    setPageSize
+    setPageSize,
+    filterQuery, 
+    setFilterQuery,
+    logId,
+    setLogId,
+    getLogById,
+    logDetails,
+    setLogDetails
   }
 
   return(
