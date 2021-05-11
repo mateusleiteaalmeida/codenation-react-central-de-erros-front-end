@@ -16,7 +16,7 @@ const LogDetails = () => {
     return (
       isFetching ? <Loading /> :
     <div className="table ">
-      <h2>Detalhes</h2>
+      {/* <h2>Detalhes</h2>
       <table className="overall-width">
         <tr>
           <th>Id</th>
@@ -39,7 +39,23 @@ const LogDetails = () => {
         }
        
         </tbody>
-        </table>
+        </table> */}
+        <div className="container-int">
+          <h3>Detalhes</h3>
+          <hr />
+          <button type="button" className="btn btn-outline-info"># {logDetails.id}</button>
+          <hr />
+          Log: {logDetails.log}
+          <hr />
+          Level: {logDetails.level}
+          <hr />
+          Origin: {logDetails.origin}
+          <hr/>
+          Date: {logDetails.date}
+          <hr/>
+          Description: {logDetails.description}
+          <hr/>
+        </div>
          <button 
          type="button" 
          className="btn btn-primary button"

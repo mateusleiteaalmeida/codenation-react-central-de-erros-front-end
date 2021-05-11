@@ -113,8 +113,8 @@ const Filter = () => {
             />
           </label>
         </div>
-        <button className="btn btn-success button" type="button" onClick={ handleFilterButton }>Filtrar</button>
-        <button className="btn btn-success button" type="button" onClick={ clearFilters }>Limpar</button>
+        <button className="btn btn-info button" type="button" onClick={ handleFilterButton }>Filtrar</button>
+        <button className="btn btn-warning button" type="button" onClick={ clearFilters }>Limpar</button>
       </form>
     </div>
   );

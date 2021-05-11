@@ -7,8 +7,11 @@ const LogsDetailsPage = () => {
 
   return (
     <div className="container-fluid">
-      <Header />      
-      <LogDetails />
+        <Header />    
+      <div className="container">
+        <LogDetails />
+      </div>  
+      
     </div>
   );
 };

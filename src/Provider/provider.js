@@ -19,22 +19,21 @@ const ProviderError = ({children}) => {
   const [pass, setPass] = useState('');
   const [userReturn, setUserReturn] = useState('');
   const [isFetching, setIsFetching] = useState(true);
-  const [logs, setLogs] = useState(defaultValue); // Implementação da gambiarra.
+  const [logs, setLogs] = useState(defaultValue);
   const [pageNumber, setPageNumber] = useState(0);
   const [sortQuery, setSortQuery] = useState('');
   const [pageSize, setPageSize] = useState(4);
   const [filterQuery, setFilterQuery] = useState('');
   const [logDetails, setLogDetails] = useState('');
 
-  // Use effect para chamada da api.
-
+  
   const getLogin = (login) => {
     setEmail(login);
   }
   const getPass = (pass) => {
     setPass(pass);
   }
-  // const history = useHistory();
+
 
   const isRegister = () => {
     window.location.href = '/register';
