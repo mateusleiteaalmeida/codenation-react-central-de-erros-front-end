@@ -1,0 +1,14 @@
+.loading {
+  width: 70px;
+  height: 70px;
+  border: 7px solid #00AFFA;
+  border-top: 7px solid #192BC2;
+  border-radius: 50%;
+  animation: is-rotating 1s infinite;
+}
+
+@keyframes is-rotating {
+  to {
+    transform: rotate(2turn);
+  }
+}

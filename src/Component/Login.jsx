@@ -1,5 +1,7 @@
 import React, {useContext } from 'react';
 import Context from '../Provider/context';
+import Lanterna from '../image/lanterninha.gif';
+
 
 const Login = () => {
 const {
@@ -11,7 +13,13 @@ const {
 } = useContext(Context);
 
   return (
-  <form className="border rounded space">
+  <form className="border space ">
+    <div className="cirene">
+      <img src={Lanterna} />
+    </div>
+    <div className="container-logo">
+
+    </div>
     <div className="form-group">
       <input 
       type="text"
@@ -28,13 +36,13 @@ const {
       name="pass" 
       id="passwordLabel" 
       className ="form-control"
-      placeholder="Pass"  
+      placeholder="Password"  
       required 
       onChange={({target}) => getPass(target.value)}/>
     </div>        
       <span className="text.danger">{userReturn}</span>
       <div className="form-group form-check">
-       <input type="checkbox" className="form-check-input" name="rememberme" id="remember"/> Remember-me
+       <input type="checkbox" className="form-check-input" name="rememberme" id="remember"/> Remember me
       </div>
       <div className="d-flex justify-content-between">
       <button className="btn btn-primary" onClick={(event) => isLogin(event)}>LOGIN</button>

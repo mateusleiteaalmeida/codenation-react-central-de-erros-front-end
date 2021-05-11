@@ -1,26 +1,45 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import ContextError from './context';
-import axios from 'axios';
+// import axios from 'axios';
 
 const ProviderError = ({children}) => {
+//  Gambiarra para resolver proble de assincronicidade, com o tempo de montagem do componet e a req.
+  const defaultValue = {
+    content: [{
+      id: 1,
+      level: "info",
+      origin: "test",
+      date: "05/09/1855",
+      description: "test",
+    }]
+  };
+
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [userReturn, setUserReturn] = useState('');
+  const [isFetching, setIsFetching] = useState(true);
+  const [logs, setLogs] = useState(defaultValue);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [sortQuery, setSortQuery] = useState('');
+  const [pageSize, setPageSize] = useState(4);
+  const [filterQuery, setFilterQuery] = useState('');
+  const [logDetails, setLogDetails] = useState('');
 
-  // Use effect para chamada da api.
-
+  
   const getLogin = (login) => {
     setEmail(login);
   }
   const getPass = (pass) => {
     setPass(pass);
   }
-  // const history = useHistory();
+
 
   const isRegister = () => {
     window.location.href = '/register';
   }
+
+  const url = 'https://squad-4-central-de-erros.herokuapp.com'
 
   const isLogin = (event) => {
     event.preventDefault();
@@ -39,20 +58,65 @@ const ProviderError = ({children}) => {
       body: urlencoded,
       redirect: 'follow'
     };
-    
-   fetch("https://squad-4-central-de-erros.herokuapp.com/oauth/token", requestOptions)
+
+    fetch(`${url}/oauth/token`, requestOptions)
       .then(response => {
-        console.log('entrou aqui também')
         if (response.status === 401) throw new Error ('Usuário ou senha incorretos.');
         return response.json()
       })
       .then(result => {
-        console.log('entrou também 2')
         localStorage.setItem('token', result.access_token);
         window.location.href = '/logs';
       })
       .catch(error => alert(error.message));
   }
+
+  // Captura os logs
+  const getLogs = () => {
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    console.log(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`)
+    fetch(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
+      .then((response) => {
+        if (response.status === 404) throw new Error("Logs não encontrados.");
+        return response.json();
+      })
+      .then((result) => {
+        setIsFetching(false);
+        setLogs(result);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const getLogById = (id) => {
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(`${url}/logs/id/${id}`, requestOptions)
+      .then((response) => {
+        if (response.status === 404) throw new Error("Log não encontrado.");
+        return response.json();
+      })
+      .then((result) => {
+        setIsFetching(false);
+        setLogDetails(result);
+      })
+      .catch((error) => alert(error.message));
+  };
 
   const onRegister = () => {
     alert('Usuario cadastrado com sucesso!');
@@ -62,21 +126,37 @@ const ProviderError = ({children}) => {
     window.location.href = '/login';
   }
 
-
+  useEffect(() => {
+    getLogs()
+  }, [pageNumber, sortQuery, pageSize, filterQuery]);
 
   const context = {
-      email,
-      setEmail,
-      pass,
-      setPass,
-      setUserReturn,
-      userReturn,
-      getPass,
-      getLogin,
-      isLogin,
-      isRegister,
-      onRegister,
-      cancel,
+    email,
+    setEmail,
+    pass,
+    setPass,
+    setUserReturn,
+    userReturn,
+    getPass,
+    getLogin,
+    isLogin,
+    isRegister,
+    onRegister,
+    cancel,
+    logs,
+    getLogs,
+    pageNumber,
+    setPageNumber,
+    sortQuery,
+    setSortQuery,
+    pageSize,
+    setPageSize,
+    filterQuery, 
+    setFilterQuery,
+    getLogById,
+    logDetails,
+    setLogDetails,
+    isFetching
   }
 
   return(
