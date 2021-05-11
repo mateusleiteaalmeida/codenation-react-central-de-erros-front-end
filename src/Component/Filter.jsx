@@ -19,6 +19,7 @@ const Filter = () => {
       if (el.id === target.id) {
         if (el.type === "checkbox" && el.checked === true) {
           filterInput.disabled = false
+          filterInput.value = ""
         }
         if (el.type === "checkbox" && el.checked === false) {
           filterInput.disabled = true
@@ -42,7 +43,8 @@ const Filter = () => {
         filterValue = el.value
       }
     }
-    const filterUrl = `${inputText}/${filterValue}`;
+    let filterUrl = `${inputText}/${filterValue}`;
+    if (filterUrl === "/") filterUrl = ""
     setFilterQuery(filterUrl);
   }
 
@@ -64,7 +66,7 @@ const Filter = () => {
       <div className="coluna">
         <label className="form-label" htmlFor="error-type">
           Ordenar por:
-          <select id="log-type" onChange={({target}) => setSortQuery(target.value)} className="form-select">
+          <select id="log-type" onChange={({target}) => setSortQuery(target.value)} className="form-select form-control">
             <option value="id">Id</option>
             <option value="origin">Origem</option>
             <option value="description">Descrição</option>
@@ -75,7 +77,7 @@ const Filter = () => {
         <div className="coluna">
           <label className="form-label" htmlFor="error-type">
             Level:
-            <select name="filter" id="level" className="form-select" onChange={ handleFilterChange } >
+            <select name="filter" id="level" className="form-select form-control" onChange={ handleFilterChange } >
               <option value=""></option>
               <option value="WARNING">Warning</option>
               <option value="ERROR">Error</option>
@@ -90,14 +92,14 @@ const Filter = () => {
           </label>
         </div>
         <div className="coluna">
-          <label htmlFor="origem">
-            <input type="checkbox" className="checkbox-filter" name="filter" id="origin" onClick={ handleFilterChange } />
+          <label htmlFor="origem" className="form-check-label">
+            <input type="checkbox" className="checkbox-filter form-control ml-3" name="filter" id="origin" onClick={ handleFilterChange } />
             Origem
           </label>
         </div>
         <div className="coluna">
           <label htmlFor="descricao">
-            <input type="checkbox" className="checkbox-filter" name="filter" id="description" onClick={ handleFilterChange } />
+            <input type="checkbox" className="checkbox-filter form-control ml-3" name="filter" id="description" onClick={ handleFilterChange } />
             Descrição
           </label>
         </div>

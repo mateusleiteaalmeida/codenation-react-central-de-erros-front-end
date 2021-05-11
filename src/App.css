@@ -3,7 +3,7 @@ body {
   padding: 0;
   overflow-y: hidden; /* Hide vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  background-image: url(./image/BG-9.jpg);
+/*   background-image: url(./image/BG-9.jpg); */
 }
 
 .container-fluid {
@@ -97,3 +97,8 @@ radio {
   margin-bottom: 20px;
 }
 
+.checkbox-filter {
+  width: 15px;
+  height: 15px;
+  margin-bottom: 4px;
+}
