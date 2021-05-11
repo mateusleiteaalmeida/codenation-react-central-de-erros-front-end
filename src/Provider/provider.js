@@ -85,7 +85,6 @@ const ProviderError = ({children}) => {
     console.log(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`)
     fetch(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
       .then((response) => {
-        if (response.status === 404) throw new Error("Logs não encontrados.");
         return response.json();
       })
       .then((result) => {
