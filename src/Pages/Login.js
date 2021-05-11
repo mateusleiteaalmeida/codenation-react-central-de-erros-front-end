@@ -6,13 +6,14 @@ import "../App.css";
 const LoginPage = () => {
   return (
     <div className="container-fluid">
-      <Header />
+     
       <div className="
       form-container 
       d-flex flex-column 
       justify-content-center
       view-height"
       >
+         <Header />
         <Login />
       </div>
     </div>
