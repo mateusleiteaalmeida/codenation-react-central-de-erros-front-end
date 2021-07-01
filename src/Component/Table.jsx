@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Loading from "../Component/Loading/Loading"
 import ContextError from "../Provider/context";
 
 const Table = () => {
-  const { logs, setLogId, isFetching } = useContext(ContextError);
+  const { logs, setLogId, isFetching, getLogs, pageNumber, sortQuery, pageSize, filterQuery } = useContext(ContextError);
+
+  useEffect(() => {
+    getLogs();
+  }, [filterQuery, pageNumber, pageSize, sortQuery]);
 
   const handleIdClick = ({target}) => {
     window.location.href=`/logs/details/${target.innerText}`
@@ -12,8 +16,9 @@ const Table = () => {
 
   return (
     isFetching ? <Loading /> :
-    <div className="table ">
+    <div className="table">
       <table className="overall-width">
+        <tbody>
         <tr>
           <th>Id</th>
           <th>Level</th>
@@ -21,8 +26,7 @@ const Table = () => {
           <th>Data</th>
           <th>Descrição</th>
         </tr>
-        <tbody>
-          {logs.content.map((logs) => (
+          {logs ? logs.content.map((logs) => (
             <tr key={logs.id} className={`table-${logs.level.toLowerCase()}`}>
               <td><button 
               type="button" 
@@ -37,7 +41,7 @@ const Table = () => {
               <td>{logs.date}</td>
               <td>{logs.description}</td>
             </tr>
-          ))}
+          )) : <h1>Logs nao encontrados</h1>}
         </tbody>
       </table>
     </div>

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import ContextError from './context';
-// import axios from 'axios';
 
 const ProviderError = ({children}) => {
-//  Gambiarra para resolver proble de assincronicidade, com o tempo de montagem do componet e a req.
   const defaultValue = {
     content: [{
       id: 1,
@@ -61,7 +58,7 @@ const ProviderError = ({children}) => {
 
     fetch(`${url}/oauth/token`, requestOptions)
       .then(response => {
-        if (response.status === 401) throw new Error ('Usuário ou senha incorretos.');
+        if (response.status === 400) throw new Error ('Usuário ou senha incorretos.');
         return response.json()
       })
       .then(result => {
@@ -71,7 +68,6 @@ const ProviderError = ({children}) => {
       .catch(error => alert(error.message));
   }
 
-  // Captura os logs
   const getLogs = () => {
     var myHeaders = new Headers();
     const token = localStorage.getItem("token");
@@ -82,12 +78,13 @@ const ProviderError = ({children}) => {
       headers: myHeaders,
       redirect: "follow",
     };
-    console.log(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`)
     fetch(`${url}/logs/${filterQuery}?pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortQuery}`, requestOptions)
       .then((response) => {
+        if (response.status === 404) throw new Error("Logs não encontrados.");
         return response.json();
       })
       .then((result) => {
+        if (result.numberOfElements === 0) throw new Error("Logs não encontrados.");
         setIsFetching(false);
         setLogs(result);
       })
@@ -124,10 +121,6 @@ const ProviderError = ({children}) => {
   const cancel = () => {
     window.location.href = '/login';
   }
-
-  useEffect(() => {
-    getLogs()
-  }, [pageNumber, sortQuery, pageSize, filterQuery]);
 
   const context = {
     email,

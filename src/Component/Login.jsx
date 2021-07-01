@@ -1,5 +1,5 @@
 import React, {useContext } from 'react';
-import Context from '../Provider/context';
+import ContextError from '../Provider/context';
 import Lanterna from '../image/lanterninha.gif';
 
 
@@ -10,12 +10,12 @@ const {
   userReturn,
   isLogin,
   isRegister
-} = useContext(Context);
+} = useContext(ContextError);
 
   return (
   <form className="border space ">
-    <div className="cirene">
-      <img src={Lanterna} />
+    <div className="sirene">
+      <img src={Lanterna} alt="Sirene" />
     </div>
     <div className="container-logo">
 
@@ -26,7 +26,7 @@ const {
       name="login"
       id="loginLabel"
       className="form-control"
-      placeholder="E-mail"
+      placeholder="Email"
       required
       onChange={({target}) => getLogin(target.value)}/>
     </div>
@@ -36,7 +36,7 @@ const {
       name="pass" 
       id="passwordLabel" 
       className ="form-control"
-      placeholder="Password"  
+      placeholder="Senha"  
       required 
       onChange={({target}) => getPass(target.value)}/>
     </div>        

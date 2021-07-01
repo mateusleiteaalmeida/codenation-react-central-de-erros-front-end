@@ -18,11 +18,19 @@ const Filter = () => {
       }
       if (el.id === target.id) {
         if (el.type === "checkbox" && el.checked === true) {
-          filterInput.disabled = false
+          filterInput.disabled = false;
           filterInput.value = ""
         }
         if (el.type === "checkbox" && el.checked === false) {
-          filterInput.disabled = true
+          filterInput.disabled = true;
+        }
+        if (el.type === "date") {
+          filterInput.disabled = true;
+          filterInput.value = ""
+        }
+        if (el.id === "level") {
+          filterInput.disabled = true;
+          filterInput.value = ""
         }
       }
     }
@@ -44,7 +52,7 @@ const Filter = () => {
       }
     }
     let filterUrl = `${inputText}/${filterValue}`;
-    if (filterUrl === "/") filterUrl = ""
+    if (filterUrl === "/") filterUrl = "";
     setFilterQuery(filterUrl);
   }
 

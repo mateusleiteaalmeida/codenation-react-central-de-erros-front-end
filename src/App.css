@@ -90,15 +90,33 @@ radio {
   margin-right: 10px;
 }
 
-.cirene {
+.checkbox-filter {
+  width: 15px;
+  height: 15px;
+  margin-bottom: 4px;
+}
+
+.sirene {
   align-items: center;
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.checkbox-filter {
-  width: 15px;
-  height: 15px;
-  margin-bottom: 4px;
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.buttons-container {
+  margin-top: 10px;
+  width: 300px;
+  justify-content: space-evenly;
+}
+
+.table {
+  height: 350px;
+  overflow: scroll;
 }
